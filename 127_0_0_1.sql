@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 03-11-2025 a las 02:59:09
+-- Tiempo de generación: 04-12-2025 a las 20:36:02
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.0.30
 
@@ -80,8 +80,7 @@ CREATE TABLE `instituciones` (
 --
 
 INSERT INTO `instituciones` (`id`, `nombre_empresa`, `ruc`, `direccion`, `contacto_nombre`, `contacto_email`, `convenio_activo`, `convenio_fecha_fin`) VALUES
-(1, 'Antony cra', '00000000001', 'jr damian', 'Cell 28', 'cel_28@gmail.com', 1, NULL),
-(2, 'Daarick28', '17171717', 'jr airita', 'Lujan Carrion', 'minishop2024@gmail.com', 1, NULL);
+(1, 'cell28', '3456790123', 'Av. Túpac Amaru, Carabayllo 1733', 'antoni cra', 'xd@gmail.com', 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -108,9 +107,14 @@ CREATE TABLE `usuarios` (
   `nombres` varchar(100) NOT NULL,
   `apellidos` varchar(100) NOT NULL,
   `codigo` varchar(20) DEFAULT NULL,
+  `telefono` varchar(20) DEFAULT NULL,
   `email` varchar(100) NOT NULL,
+  `email_respaldo` varchar(100) DEFAULT NULL,
   `password` varchar(255) NOT NULL,
   `rol` enum('estudiante','docente','admin') NOT NULL DEFAULT 'estudiante',
+  `ruta_cv` varchar(255) DEFAULT NULL,
+  `ruta_imagen_perfil` varchar(255) DEFAULT 'public/uploads/perfiles/default.png',
+  `foto_biometria` varchar(255) DEFAULT NULL,
   `activo` tinyint(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -118,10 +122,8 @@ CREATE TABLE `usuarios` (
 -- Volcado de datos para la tabla `usuarios`
 --
 
-INSERT INTO `usuarios` (`id`, `nombres`, `apellidos`, `codigo`, `email`, `password`, `rol`, `activo`) VALUES
-(1, 'Asa', 'Mitaka', '12345', 'loladare.44@gmail.com', '$2y$10$gjbaRLUKTolzFXQLSPKqLOWL5.HEMZj4tJRhs5t/38wA9e.s2hRrq', 'admin', 1),
-(2, 'daniel', 'xdxd', '12345678', 'loladare_12@hotmail.com', '$2y$10$Hhrt7GFDaH8bZQl.mX0PLuXmr3emvzChuvNu97dBeu7AVE9nD/wvW', 'estudiante', 1),
-(3, 'katty', 'Wiwiwa', '1214', 'nose_10@gmail.com', '$2y$10$x.90TOj1jI3Nph6slkbE9.51TcxUTfdYgS6izjNrYwFJCxrdnDCoC', 'docente', 1);
+INSERT INTO `usuarios` (`id`, `nombres`, `apellidos`, `codigo`, `telefono`, `email`, `email_respaldo`, `password`, `rol`, `ruta_cv`, `ruta_imagen_perfil`, `foto_biometria`, `activo`) VALUES
+(6, 'asa', 'mitaka', NULL, '', 'barca.flash29@gmail.com', '', '$2y$10$xIiGTgz6uTWJn0Uegk42N.TOakLXP8UA8xptdVl3vCsjNipPatfJy', 'admin', NULL, 'public/uploads/perfiles/usuario_6.jpg', 'public/uploads/biometria/ref_1764876723_6931e1b3ef79f.png', 1);
 
 -- --------------------------------------------------------
 
@@ -144,8 +146,7 @@ CREATE TABLE `vacantes` (
 --
 
 INSERT INTO `vacantes` (`id`, `id_institucion`, `titulo_vacante`, `descripcion`, `area_carrera`, `cupos_disponibles`, `activa`) VALUES
-(1, 1, 'Camaraman', 'Trabajar en audiovisuales', 'Audiovisuales', 1, 1),
-(2, 2, 'Niñera', '', 'Ama de casa', 1, 1);
+(1, 1, 'calla cachera', 'calla cachera', 'Ingeniera de gampis', 1, 1);
 
 --
 -- Índices para tablas volcadas
@@ -204,7 +205,7 @@ ALTER TABLE `vacantes`
 -- AUTO_INCREMENT de la tabla `aplicaciones`
 --
 ALTER TABLE `aplicaciones`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `documentos_seguimiento`
@@ -216,25 +217,25 @@ ALTER TABLE `documentos_seguimiento`
 -- AUTO_INCREMENT de la tabla `instituciones`
 --
 ALTER TABLE `instituciones`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `notificaciones`
 --
 ALTER TABLE `notificaciones`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `vacantes`
 --
 ALTER TABLE `vacantes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Restricciones para tablas volcadas

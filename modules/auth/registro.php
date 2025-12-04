@@ -1,71 +1,55 @@
 <?php
-// 1. Incluimos el archivo de conexión
+session_start();
 require_once '../../config/database.php';
 
-// 2. Verificamos que los datos se envíen por POST
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $nombres = $_POST['nombres'];
+    $apellidos = $_POST['apellidos'];
+    $email = $_POST['email'];
+    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+    $rol = $_POST['rol'];
     
-    // 3. Obtenemos y limpiamos los datos del formulario
-    $nombres = trim($_POST['nombres']);
-    $apellidos = trim($_POST['apellidos']);
-    $codigo = trim($_POST['codigo']);
-    $email = trim($_POST['email']);
-    $password = trim($_POST['password']);
-    
-    // 4. Validaciones
-    if (empty($nombres) || empty($apellidos) || empty($codigo) || empty($email) || empty($password)) {
-        // Redirigimos de vuelta al formulario de registro 
-        header("Location: ../../registro.php?error=Todos los campos son obligatorios");
-        exit();
-    }
-    
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        header("Location: ../../registro.php?error=El formato del email no es válido");
-        exit();
-    }
-    
-    if (strlen($password) < 6) {
-        header("Location: ../../registro.php?error=La contraseña debe tener al menos 6 caracteres");
+    // Obtener la imagen
+    $img_base64 = $_POST['biometria_base64'];
+
+    if (empty($img_base64)) {
+        header("Location: ../../registro.php?error=Falta la foto biométrica");
         exit();
     }
 
-    // 5. Hashear la contraseña 
-    $password_hash = password_hash($password, PASSWORD_BCRYPT);
-
-    // 6. Conexión a la BD
-    $pdo = (new Database())->connect();
+    // Procesar Imagen
+    $img_base64 = str_replace('data:image/png;base64,', '', $img_base64);
+    $img_base64 = str_replace(' ', '+', $img_base64);
+    $data_img = base64_decode($img_base64);
     
+    // Generar nombre único
+    $nombre_archivo = 'ref_' . time() . '_' . uniqid() . '.png';
+    $ruta_fisica = '../../public/uploads/biometria/' . $nombre_archivo;
+    $ruta_db = 'public/uploads/biometria/' . $nombre_archivo;
+
+    // Guardar archivo
+    file_put_contents($ruta_fisica, $data_img);
+
     try {
-        // 7. Verificamos si el email o el código ya existen
-        $stmt_check = $pdo->prepare("SELECT id FROM usuarios WHERE email = ? OR codigo = ?");
-        $stmt_check->execute([$email, $codigo]);
-        
-        if ($stmt_check->fetch()) {
-            header("Location: ../../registro.php?error=El email o el código de estudiante ya están registrados");
+        $pdo = (new Database())->connect();
+
+        // Verificar si existe el email
+        $stmtCheck = $pdo->prepare("SELECT id FROM usuarios WHERE email = ?");
+        $stmtCheck->execute([$email]);
+        if ($stmtCheck->rowCount() > 0) {
+            header("Location: ../../registro.php?error=El email ya está registrado");
             exit();
         }
 
-        // 8. Insertamos el nuevo usuario (rol 'estudiante' por defecto)
-        $stmt_insert = $pdo->prepare(
-            "INSERT INTO usuarios (nombres, apellidos, codigo, email, password, rol) 
-             VALUES (?, ?, ?, ?, ?, 'estudiante')"
-        );
-        
-        $stmt_insert->execute([$nombres, $apellidos, $codigo, $email, $password_hash]);
+        // Insertar usuario con la foto de biometría
+        $sql = "INSERT INTO usuarios (nombres, apellidos, email, password, rol, foto_biometria) VALUES (?, ?, ?, ?, ?, ?)";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$nombres, $apellidos, $email, $password, $rol, $ruta_db]);
 
-        // 9. Redirigimos al login con mensaje de éxito
-        header("Location: ../../login.php?exito=Registro completado. Ahora puedes iniciar sesión.");
-        exit();
+        header("Location: ../../login.php?exito=Cuenta creada. Ahora prueba el Login Facial.");
 
     } catch (PDOException $e) {
-        // Manejo de errores de base de datos
-        header("Location: ../../registro.php?error=Error en la base de datos, intente más tarde.");
-        exit();
+        header("Location: ../../registro.php?error=Error BD: " . $e->getMessage());
     }
-
-} else {
-    // Si alguien intenta acceder a este archivo directamente, lo mandamos al registro
-    header("Location: ../../registro.php");
-    exit();
 }
 ?>

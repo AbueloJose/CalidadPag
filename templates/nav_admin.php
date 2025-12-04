@@ -1,26 +1,28 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
   <div class="container">
     <a class="navbar-brand" href="dashboard_admin.php">
-        <i class="bi bi-shield-lock-fill"></i> Panel de Admin
+      <i class="bi bi-shield-lock-fill"></i> Panel de Admin
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navAdmin" aria-controls="navAdmin" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navAdmin">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        
         <li class="nav-item">
-          <a class="nav-link" href="admin_gestionar_usuarios.php">Usuarios </a>
+          <a class="nav-link" href="admin_gestionar_usuarios.php">Usuarios (RF03)</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="admin_gestionar_convenios.php">Convenios </a>
+          <a class="nav-link" href="admin_gestionar_convenios.php">Convenios (RF04)</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="admin_gestionar_vacantes.php">Vacantes </a>
+          <a class="nav-link" href="admin_gestionar_vacantes.php">Vacantes (RF05)</a>
         </li>
+        
         <li class="nav-item">
-          <a class="nav-link" href="modules/reportes/generar_reporte_pdf.php" target="_blank">Reportes </a>
+          <a class="nav-link" href="admin_asignaciones.php">Asignaciones</a>
         </li>
-      </ul>
+        </ul>
       <ul class="navbar-nav ms-auto">
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
