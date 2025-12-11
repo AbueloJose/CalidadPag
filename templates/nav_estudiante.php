@@ -9,10 +9,10 @@
     <div class="collapse navbar-collapse" id="navEstudiante">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link" href="estudiante_buscar_vacantes.php">Buscar Vacantes (RF05)</a>
+          <a class="nav-link" href="estudiante_buscar_vacantes.php">Buscar Vacantes</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="estudiante_mi_practica.php">Mi Práctica (RF06)</a>
+          <a class="nav-link" href="estudiante_mi_practica.php">Mi Práctica</a>
         </li>
       </ul>
       <ul class="navbar-nav ms-auto">

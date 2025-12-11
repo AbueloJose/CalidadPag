@@ -10,13 +10,13 @@
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         
         <li class="nav-item">
-          <a class="nav-link" href="admin_gestionar_usuarios.php">Usuarios (RF03)</a>
+          <a class="nav-link" href="admin_gestionar_usuarios.php">Usuarios </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="admin_gestionar_convenios.php">Convenios (RF04)</a>
+          <a class="nav-link" href="admin_gestionar_convenios.php">Convenios</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="admin_gestionar_vacantes.php">Vacantes (RF05)</a>
+          <a class="nav-link" href="admin_gestionar_vacantes.php">Vacantes</a>
         </li>
         
         <li class="nav-item">
